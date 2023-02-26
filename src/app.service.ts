@@ -24,7 +24,6 @@ export class AppService {
   }
 
   async validateToken(token: string) {
-    console.log(token);
     return await this.jwtService.validateToken(token);
   }
 }

@@ -55,8 +55,6 @@ export class AppController {
   @EventPattern('validate_token')
   async validateToken(@Payload() data: any, @Ctx() ctx: RmqContext) {
     const token = await this.appService.validateToken(data.token);
-
-    console.log('token', token);
     return token;
   }
 }

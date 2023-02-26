@@ -12,9 +12,31 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
   email     String   @unique
+}
+
+model Car {
+  id          String   @id @default(cuid())
+  make        String
+  model       String
+  ownerId     String?
+  year        Int
+  gear        String?
+  gas         String?
+  km          String?
+  price       Float
+  extras      String[]
+  title       String
+  description String?
+  train       String?
+  motor       String?
+  chasis      String?
+  style       String?
+  color       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }

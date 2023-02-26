@@ -17,8 +17,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return { userId: payload.sub };
   }
 
-  validateToken(token: string) {
-    return this.jwtService.decode(token);
+  async validateToken(token: string) {
+    try {
+      const decodedToken: any = await this.jwtService.verify(token);
+      if (!decodedToken) {
+        return false;
+      }
+      return this.jwtService.decode(token);
+    } catch (error) {
+      return false;
+    }
   }
 
   generateToken(payload: any) {

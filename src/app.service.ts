@@ -22,4 +22,9 @@ export class AppService {
 
     return { access_token: this.jwtService.generateToken(payload) };
   }
+
+  async validateToken(token: string) {
+    console.log(token);
+    return await this.jwtService.validateToken(token);
+  }
 }

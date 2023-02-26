@@ -8,6 +8,13 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
+import {
+  Ctx,
+  EventPattern,
+  MessagePattern,
+  Payload,
+  RmqContext,
+} from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { AppService } from './app.service';
@@ -43,5 +50,13 @@ export class AppController {
   @Get('protected')
   protected(@Req() req: any) {
     return req.user;
+  }
+
+  @EventPattern('validate_token')
+  async validateToken(@Payload() data: any, @Ctx() ctx: RmqContext) {
+    const token = await this.appService.validateToken(data.token);
+
+    console.log('token', token);
+    return token;
   }
 }

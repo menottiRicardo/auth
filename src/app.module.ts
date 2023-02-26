@@ -6,10 +6,15 @@ import { AppService } from './app.service';
 import { MagicLoginStrategy } from './strategies/magicLogin.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
+import { RmqModule } from './rmq/rmq.module';
 
 @Module({
   imports: [
     UsersModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     PassportModule,
     JwtModule.register({
       secret: 'rachellJWT',
@@ -17,6 +22,7 @@ import { UsersModule } from './users/users.module';
         expiresIn: '1h',
       },
     }),
+    RmqModule,
   ],
   controllers: [AppController],
   providers: [AppService, MagicLoginStrategy, JwtStrategy],
